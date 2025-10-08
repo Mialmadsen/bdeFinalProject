@@ -13,11 +13,32 @@ interface Todo {
 //array of objects that follow the Todo interface
 let todos: Todo[] = []; 
 
+
 //selecting elements from the DOM
 const todoInput = document.getElementById('todo-input') as HTMLInputElement;
 const todoForm = document.querySelector('.todo-form') as HTMLFormElement;
 const todoList = document.querySelector('.todo-list') as HTMLUListElement;
 
+
+
+//---------------- LOCALSTORAGE FUNCTIONS ----------------//
+
+//function to save todos to localStorage
+const saveTodos = () => {
+  localStorage.setItem('todos', JSON.stringify(todos));   //convert array to string and store it
+}
+
+//function to load todos from localStorage
+const loadTodos = () => {
+  const saved = localStorage.getItem('todos');            //get the saved todos (if any)
+  if (saved) {                                            //if something is saved, parse it from string to object
+    todos = JSON.parse(saved);
+  }
+}
+
+
+
+//---------------- ADD TODO FUNCTION ----------------//
 
 const addTodo = (text:string) => {
   const newTodo: Todo = {
@@ -25,11 +46,15 @@ const addTodo = (text:string) => {
     text: text,
     completed: false
   }
-  todos.push(newTodo);
+  todos.push(newTodo);                        //push new todo into array
+  saveTodos();                                //save updated array to localStorage
   console.log("check to see if push works:", todos);
-  renderTodos()                        //call renderTodos to update the list in the DOM  
+  renderTodos()                               //call renderTodos to update the list in the DOM  
 }
 
+
+
+//---------------- FORM SUBMIT LISTENER ----------------//
 
 todoForm.addEventListener('submit', (event:Event) => {
   event.preventDefault();              //stops reloading of page, so we store stuff in array and doesnt delete it when updating
@@ -41,6 +66,9 @@ todoForm.addEventListener('submit', (event:Event) => {
 })
 
 
+
+//---------------- RENDER TODOS FUNCTION ----------------//
+
 const renderTodos = () => {
   todoList.innerHTML = '';             //clear the list before re-rendering
   
@@ -50,24 +78,31 @@ const renderTodos = () => {
     li.innerHTML = `<span>${todo.text}</span>     
     <button>Remove</button>`;               //add a remove button
 
-    addRemoveButtonListener(li, todo.id);    //add event listener to the remove button
-    todoList.appendChild(li)                //pass through the li we create
+    addRemoveButtonListener(li, todo.id);   //add event listener to the remove button
+    todoList.appendChild(li)                //append the new list item to the todoList
   })
 }
-renderTodos()                               //initial render of the todo list
 
 
-//makeing remove button work
+
+//---------------- REMOVE TODO FUNCTION ----------------//
 
 const addRemoveButtonListener = (li:HTMLLIElement, id:number) => {
   const removeButton = li.querySelector('button') as HTMLButtonElement; //select the button inside the li
-  removeButton?.addEventListener('click', () => {    //add event listener to the button, which calls removeTodo with the id of the todo to be removed
-    removeTodo(id);                                  //call removeTodo with the id of the todo to be removed
+  removeButton?.addEventListener('click', () => {                       //add event listener to the button
+    removeTodo(id);                                                     //call removeTodo with the id of the todo to be removed
   })                                              
 }
 
 const removeTodo = (id:number) => {
   todos = todos.filter(todo => todo.id !== id);      //filter out the todo with the matching id by going through the array
-
+  saveTodos();                                       //save updated list to localStorage
   renderTodos();                                     //re-render the list after removing the todo
 }
+
+
+
+//---------------- INITIAL LOAD ----------------//
+
+loadTodos();     //load any saved todos when the page first loads
+renderTodos();   //initial render of the todo list
