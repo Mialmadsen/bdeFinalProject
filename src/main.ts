@@ -74,12 +74,20 @@ const renderTodos = () => {
   
   todos.forEach((todo) => {
     const li = document.createElement('li') //create a new list item for each todo
-    li.className = 'todo-item'              //add a class for styling and set the text for the todo
-    li.innerHTML = `<span>${todo.text}</span>     
-    <button>Remove</button>`;               //add a remove button
+    li.className = 'todo-item'              //add a class for styling
+
+    // 🔹 NYT: Add a class if todo is completed (for styling)
+    const completedClass = todo.completed ? 'completed' : '';
+
+    // 🔹 NYT: include completedClass on span
+    li.innerHTML = `
+      <span class="${completedClass}">${todo.text}</span>     
+      <button>Remove</button>
+    `;
 
     addRemoveButtonListener(li, todo.id);   //add event listener to the remove button
-    todoList.appendChild(li)                //append the new list item to the todoList
+    addToggleCompleteListener(li, todo.id); // 🔹 NYT: add event listener to toggle completed state
+    todoList.appendChild(li);               //append the new list item to the todoList
   })
 }
 
@@ -99,6 +107,21 @@ const removeTodo = (id:number) => {
   saveTodos();                                       //save updated list to localStorage
   renderTodos();                                     //re-render the list after removing the todo
 }
+
+
+
+//---------------- NYT: TOGGLE COMPLETED FUNCTION ----------------//
+
+const addToggleCompleteListener = (li: HTMLLIElement, id: number) => {
+  const span = li.querySelector('span') as HTMLSpanElement; //select the text span inside the li
+  span?.addEventListener('click', () => {
+    todos = todos.map(todo =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo   //toggle completed value
+    );
+    saveTodos();      //save updated state to localStorage
+    renderTodos();    //re-render to update styling
+  });
+};
 
 
 
