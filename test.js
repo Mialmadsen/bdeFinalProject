@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 // Define the page and fixture
 
 fixture `Todo Test`
-    .page("http://localhost:5173/");
+    .page("http://mialybaek.dk/todo/test/");
 
 // Test 1: Check if new todo can be added
 test("Add new todo", async t => {

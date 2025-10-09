@@ -41,7 +41,7 @@ jobs:
         run: apt-get install -y chromium
 
       - name: Run tests
-        run: testcafe chromium:headless test/*
+        run: testcafe chromium:headless test.js
 
       - name: Store artifacts
         uses: actions/upload-artifact@v4
