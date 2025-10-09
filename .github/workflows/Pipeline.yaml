@@ -8,7 +8,7 @@ on:
 
 jobs: 
   integration delivery:
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
     environment: Test
     container:
       image: node
@@ -51,7 +51,7 @@ jobs:
 
   deployment:
     needs: integration delivery
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
     environment: Live
     steps:
       - name: Load artifacts
