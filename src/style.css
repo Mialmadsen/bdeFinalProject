@@ -75,7 +75,7 @@ h1 {
 }
 .todo-item button {
   border: none;
-  background: #dc3545;
+  background: black;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
