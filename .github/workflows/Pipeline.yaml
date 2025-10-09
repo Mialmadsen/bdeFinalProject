@@ -7,7 +7,7 @@ on:
       - feature/**
 
 jobs: 
-  integration delivery:
+  integration-delivery:
     runs-on: ubuntu-latest
     environment: Test
     container:
@@ -50,7 +50,7 @@ jobs:
           path: dist/
 
   deployment:
-    needs: integration delivery
+    needs: integration-delivery
     runs-on: ubuntu-latest
     environment: Live
     steps:
