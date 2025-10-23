@@ -3,10 +3,7 @@ import { Selector } from 'testcafe';
 // Define the page and fixture
 
 fixture `Todo Test`
-    .page("http://mialybaek.dk/todo/test/")
-    .beforeEach(async t => {
-        await t.setNativeDialogHandler(() => true);
-    });
+    .page("https://todo.mialybaek.dk/test/");
 
 // Test 1: Check if new todo can be added
 test("Add new todo", async t => {

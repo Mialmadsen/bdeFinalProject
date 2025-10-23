@@ -28,7 +28,7 @@ jobs:
           server: ${{ vars.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: public_html/todo/test/
+          server-dir: todo/test/
           local-dir: dist/
 
       - name: Install Testcafe
@@ -66,5 +66,5 @@ jobs:
           server: ${{ vars.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: public_html/todo/live/
+          server-dir: todo/live/
           local-dir: dist/
