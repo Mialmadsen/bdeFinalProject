@@ -41,7 +41,7 @@ jobs:
         run: apt-get install -y chromium
 
       - name: Run tests
-        run: testcafe chromium:headless test.js
+        run: testcafe chromium:headless test.js --ssl-insecure
 
       - name: Store artifacts
         uses: actions/upload-artifact@v4
