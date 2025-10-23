@@ -32,9 +32,14 @@ const saveTodos = () => {
 
 //function to load todos from localStorage
 const loadTodos = () => {
-  const saved = localStorage.getItem('todos');            //get the saved todos (if any)
-  if (saved) {                                            //if something is saved, parse it from string to object
-    todos = JSON.parse(saved);
+  const saved = localStorage.getItem('todos');            //get the saved todos string  
+  if (saved) {
+    todos = JSON.parse(saved).map((todo: any) => ({       //parse the string back to array
+      id: todo.id,
+      text: todo.text,
+      completed: todo.completed,
+      dueDate: todo.dueDate || null, // sikrer at alle todos har dueDate
+    }));
   }
 }
 
