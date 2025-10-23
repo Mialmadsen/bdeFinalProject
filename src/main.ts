@@ -8,6 +8,7 @@ interface Todo {
   id: number;
   text: string;
   completed: boolean;
+  dueDate: string | null;
 }
 
 //array of objects that follow the Todo interface
@@ -16,6 +17,7 @@ let todos: Todo[] = [];
 
 //selecting elements from the DOM
 const todoInput = document.getElementById('todo-input') as HTMLInputElement;
+const todoDueDateInput = document.getElementById('todo-due-date') as HTMLInputElement;
 const todoForm = document.querySelector('.todo-form') as HTMLFormElement;
 const todoList = document.querySelector('.todo-list') as HTMLUListElement;
 
@@ -44,7 +46,8 @@ const addTodo = (text:string) => {
   const newTodo: Todo = {
     id: Date.now(),
     text: text,
-    completed: false
+    completed: false,
+    dueDate: todoDueDateInput.value || null
   }
   todos.push(newTodo);                        //push new todo into array
   saveTodos();                                //save updated array to localStorage
@@ -62,6 +65,7 @@ todoForm.addEventListener('submit', (event:Event) => {
   if (text !== '') {                   //if the input isnt empty, add the todo
     addTodo(text)        
     todoInput.value = '';              //clear the input field after adding todo
+    todoDueDateInput.value = '';       //clear the due date input field after adding todo
   }
 })
 
@@ -79,9 +83,12 @@ const renderTodos = () => {
     // Add a class if todo is completed (for styling)
     const completedClass = todo.completed ? 'completed' : '';
 
-    // include completedClass on span
+    // include completedClass on span & check for overdue
+
+    const overdueClass = todo.dueDate && isOverdue(todo.dueDate) && !todo.completed ? 'overdue' : '';
+
     li.innerHTML = `
-      <span class="${completedClass}">${todo.text}</span>     
+      <span class="${completedClass} ${overdueClass}">${todo.text} ${todo.dueDate ? '- Due: ' + todo.dueDate : ''}</span>   
       <button>Remove</button>
     `;
 
@@ -123,6 +130,13 @@ const addToggleCompleteListener = (li: HTMLLIElement, id: number) => {
   });
 };
 
+
+//---------------- OVERDUE CHECK FUNCTION ----------------//
+
+const isOverdue = (dueDate: string) => {  // NEW
+  const today = new Date().toISOString().split('T')[0];
+  return dueDate < today;
+}
 
 
 //---------------- INITIAL LOAD ----------------//

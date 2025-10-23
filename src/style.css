@@ -112,4 +112,10 @@ h1 {
   opacity: 0.9;
 }
 
+.overdue {
+  color: red;
+  font-weight: bold;
+  width: 50%;
+}
+
 
