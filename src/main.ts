@@ -79,9 +79,10 @@ todoForm.addEventListener('submit', (event:Event) => {
 //---------------- RENDER TODOS FUNCTION ----------------//
 
 const renderTodos = () => {
-  todoList.innerHTML = '';             //clear the list before re-rendering
+  todoList.innerHTML = '';                  //clear the list before re-rendering
   
-  todos.forEach((todo) => {
+  const sortedTodos = getSortedTodos();     //get todos sorted by status
+  sortedTodos.forEach((todo) => {           //loop through each todo in the array
     const li = document.createElement('li') //create a new list item for each todo
     li.className = 'todo-item'              //add a class for styling
 
@@ -195,6 +196,28 @@ const updateMotivation = () => {
   else if (percent >= 1) message = "Keep going, you're doing great!";
 
   messageEl.textContent = message;
+};
+
+
+// ---------------- SORT TODOS BY STATUS ---------------- //
+const getSortedTodos = (): Todo[] => {                                                        // Function to get todos sorted by status
+  return [...todos].sort((a: Todo, b: Todo) => {                                              // Create a copy of todos and sort it
+    const getPriority = (todo: Todo): number => {                                             // Determine priority based on status     
+      if (todo.dueDate && isOverdue(todo.dueDate) && !todo.completed) return 1; // Overdue    // If overdue and not completed
+      if (!todo.completed) return 2; // Active                                                // If active (not completed, not overdue)
+      return 3; // Completed                                                                  // If completed
+    };
+
+    const priorityA = getPriority(a);
+    const priorityB = getPriority(b);
+
+    if (priorityA !== priorityB) return priorityA - priorityB;
+
+    // Hvis samme prioritet, sortér evt. efter dueDate
+    if (a.dueDate && b.dueDate) return a.dueDate.localeCompare(b.dueDate);
+
+    return 0;
+  });
 };
 
 
