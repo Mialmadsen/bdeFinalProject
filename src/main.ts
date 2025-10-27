@@ -103,6 +103,8 @@ const renderTodos = () => {
   })
 
   updateStats();   //initial update of stats
+  updateProgressBar(); //initial update of progress bar
+
 
 }
 
@@ -160,6 +162,18 @@ const updateStats = () => {
   if (totalEl) totalEl.textContent = `Total: ${total}`;
   if (completedEl) completedEl.textContent = `Completed: ${completed}`;
   if (overdueEl) overdueEl.textContent = `Overdue: ${overdue}`;
+};
+
+//---------------- PROGRESS BAR ----------------//
+const updateProgressBar = () => {
+  const progressBar = document.getElementById('progress-bar') as HTMLElement;   // Get the progress bar element
+  if (!progressBar) return;                                                     // If it doesn't exist, exit the function 
+
+  const total = todos.length;                                                   // Calculate total todos  
+  const completed = todos.filter(todo => todo.completed).length;                // Calculate completed todos
+  const progress = total > 0 ? (completed / total) * 100 : 0;                   // Calculate progress percentage
+
+  progressBar.style.width = `${progress}%`;                                     // Update the width of the progress bar 
 };
 
 

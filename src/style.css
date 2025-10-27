@@ -76,6 +76,25 @@ h1 {
 #stats span:nth-child(3)::before { color: #f44336; } /* Overdue */
 
 
+/* Progress Bar */
+#progress-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin: 1rem auto;
+  height: 14px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff7f50, #4caf50);
+  border-radius: 10px;
+  transition: width 0.4s ease-in-out;
+}
+
 
 /* TODO FORM */
 
