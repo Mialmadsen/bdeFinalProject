@@ -44,6 +44,19 @@ h1 {
   width: var(--container-width);
 }
 
+/* Stats overview */
+#stats-section {
+  margin: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+#stats span {
+  margin: 0 0.5rem;
+  font-weight: 500;
+}
+
 
 /* TODO FORM */
 

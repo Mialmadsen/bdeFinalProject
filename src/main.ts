@@ -101,6 +101,9 @@ const renderTodos = () => {
     addToggleCompleteListener(li, todo.id); //add event listener to toggle completed state
     todoList.appendChild(li);               //append the new list item to the todoList
   })
+
+  updateStats();   //initial update of stats
+
 }
 
 
@@ -142,6 +145,23 @@ const isOverdue = (dueDate: string) => {  // NEW
   const today = new Date().toISOString().split('T')[0];
   return dueDate < today;
 }
+
+
+// ---------------- UPDATE STATS FUNCTION (feature/stats-overview) ---------------- //
+const updateStats = () => {
+  const total = todos.length;
+  const completed = todos.filter(todo => todo.completed).length;
+  const overdue = todos.filter(todo => todo.dueDate && isOverdue(todo.dueDate) && !todo.completed).length;
+
+  const totalEl = document.getElementById('total-count') as HTMLElement | null;
+  const completedEl = document.getElementById('completed-count') as HTMLElement | null;
+  const overdueEl = document.getElementById('overdue-count') as HTMLElement | null;
+
+  if (totalEl) totalEl.textContent = `Total: ${total}`;
+  if (completedEl) completedEl.textContent = `Completed: ${completed}`;
+  if (overdueEl) overdueEl.textContent = `Overdue: ${overdue}`;
+};
+
 
 
 //---------------- INITIAL LOAD ----------------//
