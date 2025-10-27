@@ -96,6 +96,24 @@ h1 {
 }
 
 
+/* Motivational Message */
+#motivation-container {
+  text-align: center;
+  margin: 1rem auto;
+  font-family: Arial, sans-serif;
+}
+
+#motivation-message {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #f0f4f8;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 /* TODO FORM */
 
 .todo-form {

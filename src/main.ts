@@ -104,6 +104,7 @@ const renderTodos = () => {
 
   updateStats();   //initial update of stats
   updateProgressBar(); //initial update of progress bar
+  updateMotivation(); //initial update of motivational message
 
 
 }
@@ -174,6 +175,26 @@ const updateProgressBar = () => {
   const progress = total > 0 ? (completed / total) * 100 : 0;                   // Calculate progress percentage
 
   progressBar.style.width = `${progress}%`;                                     // Update the width of the progress bar 
+};
+
+// ---------------- MOTIVATIONAL MESSAGE ---------------- //
+const updateMotivation = () => {
+  const messageEl = document.getElementById('motivation-message') as HTMLElement;  // Get the motivational message element
+  if (!messageEl) return;                                                          // If it doesn't exist, exit the function
+
+  const total = todos.length;                                                      // Calculate total todos    
+  const completed = todos.filter(todo => todo.completed).length;                   // Calculate completed todos
+  const percent = total > 0 ? (completed / total) * 100 : 0;                       // Calculate completion percentage 
+
+  let message = "Let's get started!";                                              // Default message  
+
+  if (percent === 100) message = "All done! Great job!";                           // If all todos are completed
+  else if (percent >= 75) message = "You're almost there!";
+  else if (percent >= 50) message = "Almost there, stay focused!";
+  else if (percent >= 25) message = "Good progress, keep it up!";
+  else if (percent >= 1) message = "Keep going, you're doing great!";
+
+  messageEl.textContent = message;
 };
 
 
