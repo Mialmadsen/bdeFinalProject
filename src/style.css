@@ -46,16 +46,35 @@ h1 {
 
 /* Stats overview */
 #stats-section {
-  margin: 1rem;
+  margin: 1.5rem;
   text-align: center;
-  font-size: 0.95rem;
+  font-family: Arial, sans-serif;
+}
+
+#stats {
+  display: inline-flex;
+  gap: 1rem;
+  background-color: #f0f4f8;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: 500;
   color: #333;
 }
 
 #stats span {
-  margin: 0 0.5rem;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
 }
+
+#stats span::before {
+  content: "•";
+  margin-right: 0.4rem;
+  color: #4caf50;
+}
+
+#stats span:nth-child(2)::before { color: #2196f3; } /* Completed */
+#stats span:nth-child(3)::before { color: #f44336; } /* Overdue */
+
 
 
 /* TODO FORM */
