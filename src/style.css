@@ -97,21 +97,24 @@ h1 {
 
 
 /* Motivational Message */
+
 #motivation-container {
   text-align: center;
   margin: 1rem auto;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #motivation-message {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  background-color: #f0f4f8;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #5A8264;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   max-width: 500px;
   margin: 0 auto;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 /* TODO FORM */
