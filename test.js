@@ -106,3 +106,20 @@ test("Progress bar updates correctly", async t => {
         // Assert
         .expect(Selector('#progress-bar').getStyleProperty('width')).notEql('0px'); // progressbar skal ændre sig
 });
+
+
+// Test 7: Check if motivational message updates when completing todos
+test("Motivational message updates correctly", async t => {
+    await t
+        // Arrange
+        .typeText(Selector("#todo-input"), "Motivation test 1")
+        .click(Selector('button').withText('Add Todo'))
+        .typeText(Selector("#todo-input"), "Motivation test 2")
+        .click(Selector('button').withText('Add Todo'))
+
+        // Act
+        .click(Selector('.todo-list li span').withText('Motivation test 1')) // markér en som completed
+
+        // Assert
+        .expect(Selector('#motivation-message').innerText).notEql(''); // beskeden skal ændre sig
+});
