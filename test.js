@@ -33,6 +33,7 @@ test("Remove todo", async t => {
         .expect(Selector('.todo-list li').withText('Test remove').exists).notOk();
 });
 
+
 // Test 3: Mark todo as completed 
 test("Mark todo as completed", async t => {
     await t
@@ -63,4 +64,28 @@ test("Stats overview updates when adding and completing todos", async t => {
 
         // Assert completed vises korrekt
         .expect(Selector('#completed-count').innerText).contains('Completed');
+});
+
+
+// Test 5: Check sorting order 
+test("Todos are sorted by status", async t => {
+    // Arrange
+    await t
+        .typeText(Selector("#todo-input"), "Overdue task")
+        .typeText(Selector("#todo-due-date"), "2024-01-01") // en gammel dato
+        .click(Selector('button').withText('Add Todo'))
+        .typeText(Selector("#todo-input"), "Active task")
+        .click(Selector('button').withText('Add Todo'))
+        .typeText(Selector("#todo-input"), "Completed task")
+        .click(Selector('button').withText('Add Todo'));
+
+    // Markér den sidste som completed
+    await t
+        .click(Selector('.todo-list li span').withText('Completed task'));
+
+    // Assert
+    await t
+        .expect(Selector('.todo-list li:nth-child(1) span').textContent).contains("Overdue task")
+        .expect(Selector('.todo-list li:nth-child(2) span').textContent).contains("Active task")
+        .expect(Selector('.todo-list li:nth-child(3) span').textContent).contains("Completed task");
 });
