@@ -48,3 +48,19 @@ test("Mark todo as completed", async t => {
 });
 
 
+// Test 4: Check stats update
+test("Stats overview updates when adding and completing todos", async t => {
+    await t
+        // Arrange
+        .typeText(Selector("#todo-input"), "Stats test")
+        .click(Selector('button').withText('Add Todo'))
+
+        // Assert total vises korrekt
+        .expect(Selector('#total-count').innerText).contains('Total:')
+
+        // Act
+        .click(Selector('.todo-list li span').withText('Stats test')) // markér completed
+
+        // Assert completed vises korrekt
+        .expect(Selector('#completed-count').innerText).contains('Completed');
+});
