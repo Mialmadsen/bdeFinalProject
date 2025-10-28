@@ -33,4 +33,18 @@ test("Remove todo", async t => {
         .expect(Selector('.todo-list li').withText('Test remove').exists).notOk();
 });
 
+// Test 3: Mark todo as completed 
+test("Mark todo as completed", async t => {
+    await t
+        // Arrange
+        .typeText(Selector("#todo-input"), "Complete this task")
+        .click(Selector('button').withText('Add Todo'))
+
+        // Act
+        .click(Selector('.todo-list li span').withText('Complete this task')) // klikker for at markere som completed
+
+        // Assert
+        .expect(Selector('.todo-list li span.completed').withText('Complete this task').exists).ok();
+});
+
 
