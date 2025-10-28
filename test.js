@@ -89,3 +89,20 @@ test("Todos are sorted by status", async t => {
         .expect(Selector('.todo-list li:nth-child(2) span').textContent).contains("Active task")
         .expect(Selector('.todo-list li:nth-child(3) span').textContent).contains("Completed task");
 });
+
+
+// Test 6: Check if progress bar updates when completing todos
+test("Progress bar updates correctly", async t => {
+    await t
+        // Arrange
+        .typeText(Selector("#todo-input"), "Progress test 1")
+        .click(Selector('button').withText('Add Todo'))
+        .typeText(Selector("#todo-input"), "Progress test 2")
+        .click(Selector('button').withText('Add Todo'))
+
+        // Act
+        .click(Selector('.todo-list li span').withText('Progress test 1')) // markér en som completed
+
+        // Assert
+        .expect(Selector('#progress-bar').getStyleProperty('width')).notEql('0px'); // progressbar skal ændre sig
+});
