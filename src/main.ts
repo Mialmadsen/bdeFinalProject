@@ -1,7 +1,7 @@
 import './style.css'
 //import { setupCounter } from './counter.ts'   -> kan bruges til modules
 
-
+// Skal koden deles op i mindre modules? Eller er det okay at have det hele i main.ts?
 
 //---------------- 1. INTERFACE & VARIABLES -------------------------------------------------------//
 
